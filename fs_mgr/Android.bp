@@ -74,7 +74,6 @@ cc_defaults {
     whole_static_libs: [
         "liblogwrap",
         "libdm",
-        "libext2_uuid",
         "libfscrypt",
         "libfstab",
     ],
@@ -149,6 +148,10 @@ cc_library_static {
         "fs_mgr_fstab.cpp",
         "fs_mgr_boot_config.cpp",
         "fs_mgr_slotselect.cpp",
+    ],
+    whole_static_libs: [
+        "libext2_blkid",
+        "libext2_uuid",
     ],
     target: {
         darwin: {
