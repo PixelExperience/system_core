@@ -17,6 +17,7 @@ option java_outer_classname = "TombstoneProtos";
 
 message Tombstone {
   Architecture arch = 1;
+  string custom_version = 1000;
   string build_fingerprint = 2;
   string revision = 3;
   string timestamp = 4;
