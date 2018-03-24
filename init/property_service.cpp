@@ -919,7 +919,9 @@ void PropertyLoadBootDefaults() {
     property_initialize_ro_product_props();
     property_derive_build_fingerprint();
 
-    update_sys_usb_config();
+    if (android::base::GetBoolProperty("ro.persistent_properties.ready", false)) {
+        update_sys_usb_config();
+    }
 }
 
 bool LoadPropertyInfoFromFile(const std::string& filename,
