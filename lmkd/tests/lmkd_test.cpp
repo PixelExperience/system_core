@@ -39,7 +39,7 @@ using namespace android::base;
 #define LMKDTEST_RESPAWN_FLAG "LMKDTEST_RESPAWN"
 
 #define LMKD_LOGCAT_MARKER "lowmemorykiller"
-#define LMKD_KILL_MARKER_TEMPLATE LMKD_LOGCAT_MARKER ": Killing '%s'"
+#define LMKD_KILL_MARKER_TEMPLATE LMKD_LOGCAT_MARKER ": Kill '%s'"
 #define OOM_MARKER "Out of memory"
 #define OOM_KILL_MARKER "Killed process"
 #define MIN_LOG_SIZE 100
@@ -370,4 +370,3 @@ TEST(lmkd, check_for_oom) {
     GTEST_LOG_(INFO) << "====Complete logcat output====" << std::endl
                      << logcat_out;
 }
-
