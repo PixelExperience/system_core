@@ -390,7 +390,7 @@ static int show_help() {
             "                                           For ethernet, provide an address in the\n"
             "                                           form <protocol>:<hostname>[:port] where\n"
             "                                           <protocol> is either tcp or udp.\n"
-            "  -c <cmdline>                             Override kernel commandline.\n"
+            "  -c,--cmdline <cmdline>                   Override kernel commandline.\n"
             "  -i <vendor id>                           Specify a custom USB vendor id.\n"
             "  -b, --base <base_addr>                   Specify a custom kernel base\n"
             "                                           address (default: 0x10000000).\n"
@@ -1511,6 +1511,7 @@ int main(int argc, char **argv)
 
     const struct option longopts[] = {
         {"base", required_argument, 0, 'b'},
+        {"cmdline", required_argument, 0, 0},
         {"kernel_offset", required_argument, 0, 'k'},
         {"kernel-offset", required_argument, 0, 'k'},
         {"page_size", required_argument, 0, 'n'},
@@ -1607,6 +1608,8 @@ int main(int argc, char **argv)
                 fprintf(stdout, "fastboot version %s\n", FASTBOOT_VERSION);
                 fprintf(stdout, "Installed as %s\n", android::base::GetExecutablePath().c_str());
                 return 0;
+            } else if (strcmp("cmdline", longopts[longindex].name) == 0) {
+                cmdline = optarg;
             } else if (strcmp("slot", longopts[longindex].name) == 0) {
                 slot_override = std::string(optarg);
             } else if (strcmp("skip-secondary", longopts[longindex].name) == 0 ) {
