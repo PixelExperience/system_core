@@ -254,6 +254,7 @@ static BatteryMonitor::PowerSupplyType readPowerSupplyType(const String8& path) 
             {"Wireless", BatteryMonitor::ANDROID_POWER_SUPPLY_TYPE_WIRELESS},
             {"Dock", BatteryMonitor::ANDROID_POWER_SUPPLY_TYPE_DOCK},
             {"DASH", BatteryMonitor::ANDROID_POWER_SUPPLY_TYPE_AC},
+            {"WARP", BatteryMonitor::ANDROID_POWER_SUPPLY_TYPE_AC},
             {NULL, 0},
     };
     std::string buf;
