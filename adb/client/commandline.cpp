@@ -41,6 +41,7 @@
 #include <android-base/parseint.h>
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
+#include <cutils/sockets.h>
 
 #if !defined(_WIN32)
 #include <signal.h>
@@ -911,7 +912,7 @@ static int adb_sideload_install(const char* filename, bool rescue_mode) {
         fd_set fds;
         struct timeval tv;
         FD_ZERO(&fds);
-        FD_SET(device_fd, &fds);
+        FD_SET(static_cast<cutils_socket_t>(device_fd), &fds);
         tv.tv_sec = 1;
         tv.tv_usec = 0;
         int rc = select(device_fd+1, &fds, NULL, NULL, &tv);
