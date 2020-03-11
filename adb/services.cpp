@@ -116,9 +116,7 @@ static void wait_for_state(int fd, state_info* sinfo) {
                 break;
             }
         } else if (t != nullptr &&
-                   (sinfo->state == kCsAny || sinfo->state == t->GetConnectionState() ||
-                   (sinfo->state == kCsOnline && (t->GetConnectionState() == kCsRecovery ||
-                                                  t->GetConnectionState() == kCsDevice)) )) {
+                   (sinfo->state == kCsAny || sinfo->state == t->GetConnectionState())) {
             SendOkay(fd);
             break;
         }
@@ -239,8 +237,6 @@ asocket* host_service_to_socket(std::string_view name, std::string_view serial,
             sinfo->state = kCsAny;
         } else if (name == "-disconnect") {
             sinfo->state = kCsOffline;
-        } else if (name == "-online") {
-            sinfo->state = kCsOnline;
         } else {
             return nullptr;
         }
