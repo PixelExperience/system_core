@@ -217,6 +217,12 @@ int adbd_main(int server_port) {
     if (__android_log_is_debuggable() || device_unlocked) {
         auth_required = android::base::GetBoolProperty("ro.adb.secure", false);
     }
+#if defined(__ANDROID_RECOVERY__)
+    if (android::base::GetProperty("ro.build.type", "") == "userdebug") {
+        auth_required = auth_required &&
+                        android::base::GetBoolProperty("ro.adb.secure.recovery", true);
+    }
+#endif
 #endif
 
     // Our external storage path may be different than apps, since
