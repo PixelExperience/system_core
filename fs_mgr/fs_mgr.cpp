@@ -1128,9 +1128,11 @@ int fs_mgr_mount_all(Fstab* fstab, int mount_mode) {
 
         // Skip mounting the root partition, as it will already have been mounted.
         if (current_entry.mount_point == "/" || current_entry.mount_point == "/system") {
+#ifndef SKIP_SET_BLK_RO
             if ((current_entry.flags & MS_RDONLY) != 0) {
                 fs_mgr_set_blk_ro(current_entry.blk_device);
             }
+#endif
             continue;
         }
 
