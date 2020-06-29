@@ -222,7 +222,10 @@ cc_defaults {
 
 cc_library_host_static {
     name: "libfastboot",
-    defaults: ["fastboot_host_defaults"],
+    defaults: [
+        "fastboot_host_defaults",
+        "target_uses_prebuilt_dynamic_partitions_defaults",
+    ],
 
     srcs: [
         "bootimg_utils.cpp",
