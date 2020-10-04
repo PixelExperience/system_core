@@ -190,11 +190,7 @@ cc_binary {
     ],
     recovery_available: true,
     host_supported: true,
-    target: {
-        android: {
-            symlinks: ["unzip", "zipinfo"],
-        },
-    },
+    symlinks: ["unzip", "zipinfo"],
 }
 
 cc_fuzz {
