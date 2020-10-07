@@ -798,6 +798,8 @@ static void load_override_properties() {
     }
 }
 
+constexpr auto ANDROIDBOOT_MODE = "androidboot.mode"sv;
+
 static const char *snet_prop_key[] = {
     "ro.boot.vbmeta.device_state",
     "ro.boot.verifiedbootstate",
@@ -853,17 +855,41 @@ static const char *snet_prop_value[] = {
 static void workaround_snet_properties() {
     std::string build_type = android::base::GetProperty("ro.build.type", "");
 
+    // Check whether this is a normal boot, and whether the bootloader is actually locked
+    auto isNormalBoot = true; // no prop = normal boot
+    // This runs before keys are set as props, so we need to process them ourselves.
+    ImportKernelCmdline([&](const std::string& key, const std::string& value) {
+        if (key == ANDROIDBOOT_MODE && value != "normal") {
+            isNormalBoot = false;
+        }
+    });
+    ImportBootconfig([&](const std::string& key, const std::string& value) {
+        if (key == ANDROIDBOOT_MODE && value != "normal") {
+            isNormalBoot = false;
+        }
+    });
+
+    // Bail out if this is recovery, fastbootd, or anything other than a normal boot.
+    // fastbootd, in particular, needs the real values so it can allow flashing on
+    // unlocked bootloaders.
+    if (!isNormalBoot) {
+        return;
+    }
+
+    // Exit if eng build
+    if (build_type == "eng") {
+        return;
+    }
+
     // Weaken property override security to set safetynet props
     weaken_prop_override_security = true;
 
     std::string error;
 
-    // Hide all sensitive props if not eng build
-    if (build_type != "eng") {
-        LOG(INFO) << "snet: Hiding sensitive props";
-        for (int i = 0; snet_prop_key[i]; ++i) {
-            PropertySet(snet_prop_key[i], snet_prop_value[i], &error);
-        }
+    // Hide all sensitive props 
+    LOG(INFO) << "snet: Hiding sensitive props";
+    for (int i = 0; snet_prop_key[i]; ++i) {
+        PropertySet(snet_prop_key[i], snet_prop_value[i], &error);
     }
 
     // Extra pops
