@@ -1453,7 +1453,7 @@ void kick_all_tcp_devices() {
 
 #endif
 
-#if ADB_HOST
+#if ADB_HOST || LEGACY_FFS
 void register_usb_transport(usb_handle* usb, const char* serial, const char* devpath,
                             unsigned writeable) {
     atransport* t = new atransport(writeable ? kCsOffline : kCsNoPerm);

@@ -79,7 +79,7 @@ cc_defaults {
     name: "adbd_defaults",
     defaults: ["adb_defaults"],
 
-    cflags: ["-UADB_HOST", "-DADB_HOST=0"],
+    cflags: ["-UADB_HOST", "-DADB_HOST=0", "-DLEGACY_FFS=1"],
 }
 
 cc_defaults {
@@ -159,6 +159,7 @@ libadb_srcs = [
     "sysdeps/errno.cpp",
     "transport.cpp",
     "transport_fd.cpp",
+    "transport_legacy.cpp",
     "transport_local.cpp",
     "types.cpp",
 ]
@@ -405,7 +406,13 @@ cc_library_static {
                 "daemon/transport_qemu.cpp",
                 "daemon/usb.cpp",
                 "daemon/usb_ffs.cpp",
+                "daemon/usb_legacy.cpp",
             ]
+        },
+        linux_glibc: {
+            srcs: [
+                "daemon/usb_dummy.cpp",
+             ]
         },
         recovery: {
             exclude_shared_libs: [
