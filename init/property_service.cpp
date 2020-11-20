@@ -840,16 +840,20 @@ static const char *snet_prop_value[] = {
 };
 
 static void workaround_snet_properties() {
+    std::string build_type = android::base::GetProperty("ro.build.type", "");
+
     // Weaken property override security to set safetynet props
     weaken_prop_override_security = true;
 
 	std::string error;
-	LOG(INFO) << "snet: Hiding sensitive props";
 
-	// Hide all sensitive props
-	for (int i = 0; snet_prop_key[i]; ++i) {
-		PropertySet(snet_prop_key[i], snet_prop_value[i], &error);
-	}
+	// Hide all sensitive props if not eng build
+    if (build_type != "eng") {
+	    LOG(INFO) << "snet: Hiding sensitive props";
+	    for (int i = 0; snet_prop_key[i]; ++i) {
+            PropertySet(snet_prop_key[i], snet_prop_value[i], &error);
+	    }
+    }
 
     // Restore the normal property override security after safetynet props have been set
     weaken_prop_override_security = false;
