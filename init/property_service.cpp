@@ -784,6 +784,11 @@ static const char *snet_prop_key[] = {
 	"ro.debuggable",
 	"ro.secure",
 	"ro.build.type",
+	"ro.system.build.type",
+	"ro.system_ext.build.type",
+	"ro.vendor.build.type",
+	"ro.product.build.type",
+	"ro.odm.build.type",
 	"ro.build.keys",
 	"ro.build.tags",
 	"ro.system.build.tags",
@@ -805,6 +810,11 @@ static const char *snet_prop_value[] = {
 	"0", // ro.debuggable
 	"1", // ro.secure
 	"user", // ro.build.type
+	"user", // ro.system.build.type
+	"user", // ro.system_ext.build.type
+	"user", // ro.vendor.build.type
+	"user", // ro.product.build.type
+	"user", // ro.odm.build.type
 	"release-keys", // ro.build.keys
 	"release-keys", // ro.build.tags
 	"release-keys", // ro.system.build.tags
@@ -844,6 +854,13 @@ static void workaround_snet_properties() {
 	    }
     }
 
+    // Extra pops
+    std::string build_flavor_key = "ro.build.flavor";
+    std::string build_flavor_value = android::base::GetProperty(build_flavor_key, "");
+    std::replace(build_flavor_value.begin(), build_flavor_value.end(), "userdebug", "user");
+    PropertySet(build_flavor_key, build_flavor_value, &error);
+
+    // Force build fingerprint if specified
     #ifdef TARGET_FORCE_BUILD_FINGERPRINT
         for (int i = 0; build_fingerprint_key[i]; ++i) {
             PropertySet(build_fingerprint_key[i], TARGET_FORCE_BUILD_FINGERPRINT, &error);
