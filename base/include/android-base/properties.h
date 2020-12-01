@@ -91,7 +91,7 @@ class CachedProperty {
   const prop_info* prop_info_;
   std::optional<uint32_t> cached_area_serial_;
   std::optional<uint32_t> cached_property_serial_;
-  char cached_value_[92];
+  char cached_value_[151];
   bool is_read_only_;
   const char* read_only_property_;
 };
