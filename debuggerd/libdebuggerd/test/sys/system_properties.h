@@ -32,6 +32,6 @@
 // This is just enough to get the property code to compile on
 // the host.
 
-#define PROP_VALUE_MAX  92
+#define PROP_VALUE_MAX  151
 
 #endif // _DEBUGGERD_TEST_SYS_SYSTEM_PROPERTIES_H

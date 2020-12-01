@@ -30,7 +30,7 @@
 #define __ANDROID_API_R__ 30
 
 // sys/system_properties.h
-#define PROP_VALUE_MAX 92
+#define PROP_VALUE_MAX 151
 
 namespace android {
 namespace init {
