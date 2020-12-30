@@ -116,7 +116,7 @@ static Result<void> MountDir(const std::string& path, const std::string& mount_p
     return {};
 }
 
-static Result<std::string> GetApexName(const std::string& apex_dir) {
+static Result<apex::proto::ApexManifest> GetApexManifest(const std::string& apex_dir) {
     const std::string manifest_path = apex_dir + "/apex_manifest.pb";
     std::string content;
     if (!android::base::ReadFileToString(manifest_path, &content)) {
@@ -126,7 +126,7 @@ static Result<std::string> GetApexName(const std::string& apex_dir) {
     if (!manifest.ParseFromString(content)) {
         return Error() << "Can't parse manifest file: " << manifest_path;
     }
-    return manifest.name();
+    return manifest;
 }
 
 static Result<void> ActivateFlattenedApexesFrom(const std::string& from_dir,
@@ -148,15 +148,18 @@ static Result<void> ActivateFlattenedApexesFrom(const std::string& from_dir,
     std::sort(entries.begin(), entries.end());
     for (const auto& name : entries) {
         const std::string apex_path = from_dir + "/" + name;
-        const auto apex_name = GetApexName(apex_path);
-        if (!apex_name.ok()) {
-            LOG(ERROR) << apex_path << " is not an APEX directory: " << apex_name.error();
+        const auto apex_manifest = GetApexManifest(apex_path);
+        if (!apex_manifest.ok()) {
+            LOG(ERROR) << apex_path << " is not an APEX directory: " << apex_manifest.error();
             continue;
         }
-        const std::string mount_path = to_dir + "/" + (*apex_name);
+        const std::string mount_path = to_dir + "/" + apex_manifest->name();
         if (auto result = MountDir(apex_path, mount_path); !result.ok()) {
             return result;
         }
+        LOG(INFO) << "Activated APEX '" << apex_manifest->name() << "' in " << apex_path
+                  << " to " << mount_path << ", version " << apex_manifest->version()
+                  << " " << apex_manifest->versionname();
     }
     return {};
 }
