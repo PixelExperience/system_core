@@ -45,6 +45,7 @@ init_cflags += \
 
 # Do not build this even with mmma if we're system-as-root, otherwise it will overwrite the symlink.
 ifneq ($(BOARD_BUILD_SYSTEM_ROOT_IMAGE),true)
+ifneq ($(TARGET_USES_PREBUILT_RAMDISK_INIT),true)
 include $(CLEAR_VARS)
 LOCAL_CPPFLAGS := $(init_cflags)
 LOCAL_SRC_FILES := \
@@ -118,6 +119,7 @@ LOCAL_SANITIZE := signed-integer-overflow
 # First stage init is weird: it may start without stdout/stderr, and no /proc.
 LOCAL_NOSANITIZE := hwaddress
 include $(BUILD_EXECUTABLE)
+endif
 endif
 
 include $(CLEAR_VARS)
