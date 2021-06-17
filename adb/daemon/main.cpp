@@ -218,8 +218,10 @@ int adbd_main(int server_port) {
         auth_required = android::base::GetBoolProperty("ro.adb.secure", false);
     }
 #if defined(__ANDROID_RECOVERY__)
-    auth_required = auth_required &&
-                    android::base::GetBoolProperty("ro.adb.secure.recovery", true);
+    if (android::base::GetProperty("ro.build.type", "") == "userdebug") {
+        auth_required = auth_required &&
+                        android::base::GetBoolProperty("ro.adb.secure.recovery", true);
+    }
 #endif
 #endif
 
