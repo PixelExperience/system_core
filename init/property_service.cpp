@@ -798,8 +798,6 @@ static void load_override_properties() {
     }
 }
 
-constexpr auto ANDROIDBOOT_MODE = "androidboot.mode"sv;
-
 static const char *snet_prop_key[] = {
     "ro.boot.vbmeta.device_state",
     "ro.boot.verifiedbootstate",
@@ -859,24 +857,10 @@ static const char *snet_prop_value[] = {
 static void workaround_snet_properties() {
     std::string build_type = android::base::GetProperty("ro.build.type", "");
 
-    // Check whether this is a normal boot, and whether the bootloader is actually locked
-    auto isNormalBoot = true; // no prop = normal boot
-    // This runs before keys are set as props, so we need to process them ourselves.
-    ImportKernelCmdline([&](const std::string& key, const std::string& value) {
-        if (key == ANDROIDBOOT_MODE && value != "normal") {
-            isNormalBoot = false;
-        }
-    });
-    ImportBootconfig([&](const std::string& key, const std::string& value) {
-        if (key == ANDROIDBOOT_MODE && value != "normal") {
-            isNormalBoot = false;
-        }
-    });
-
     // Bail out if this is recovery, fastbootd, or anything other than a normal boot.
     // fastbootd, in particular, needs the real values so it can allow flashing on
     // unlocked bootloaders.
-    if (!isNormalBoot) {
+    if (IsRecoveryMode()) {
         return;
     }
 
