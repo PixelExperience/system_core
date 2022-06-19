@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4908988_9cdb58e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000019
+      },
+      "writtenOn": "2022-06-19T08:47:21Z",
+      "side": 1,
+      "message": "https://github.com/PixelExperience/system_core/commit/a9ff3794e9f332fb354e809f913c9b77e489ad69 doesn\u0027t work as intended? ",
+      "revId": "2fe52f43376f9a00678cd01748df9010310a6e27",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    }
+  ]
+}
