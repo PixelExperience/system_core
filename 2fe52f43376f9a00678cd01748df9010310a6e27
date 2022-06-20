@@ -16,6 +16,24 @@
       "message": "https://github.com/PixelExperience/system_core/commit/a9ff3794e9f332fb354e809f913c9b77e489ad69 doesn\u0027t work as intended? ",
       "revId": "2fe52f43376f9a00678cd01748df9010310a6e27",
       "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c2b6fb_11b77a20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000646
+      },
+      "writtenOn": "2022-06-20T03:10:32Z",
+      "side": 1,
+      "message": "Not for me, idk if it\u0027s a xiaomi specific thing or what but if I try flashing in fastbootd it fails with \"FAILED (remote: \u0027Download is not allowed on locked devices\u0027)\"",
+      "parentUuid": "d4908988_9cdb58e3",
+      "revId": "2fe52f43376f9a00678cd01748df9010310a6e27",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
     }
   ]
 }
