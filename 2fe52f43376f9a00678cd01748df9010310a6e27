@@ -34,6 +34,24 @@
       "parentUuid": "d4908988_9cdb58e3",
       "revId": "2fe52f43376f9a00678cd01748df9010310a6e27",
       "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d59a794_8dfe0455",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-06-21T14:00:06Z",
+      "side": 1,
+      "message": "What about moving IsRecoveryMode call to be inside workaround_snet_properties ?",
+      "parentUuid": "98c2b6fb_11b77a20",
+      "revId": "2fe52f43376f9a00678cd01748df9010310a6e27",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
     }
   ]
 }
