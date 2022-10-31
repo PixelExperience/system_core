@@ -16,6 +16,23 @@
       "message": "+1",
       "revId": "d8f40761591133b5a651aac73a427aa0f375f011",
       "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b76923_77e97d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000729
+      },
+      "writtenOn": "2022-10-31T19:10:21Z",
+      "side": 1,
+      "message": "This patch resolves my issue with cts failing after reboot.",
+      "revId": "d8f40761591133b5a651aac73a427aa0f375f011",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
     }
   ]
 }
