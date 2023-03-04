@@ -2113,7 +2113,7 @@ bool fs_mgr_swapon_all(const Fstab& fstab) {
             // we can assume the device number is 0.
             if (entry.max_comp_streams >= 0) {
                 auto zram_mcs_fp = std::unique_ptr<FILE, decltype(&fclose)>{
-                        fopen(ZRAM_CONF_MCS, "re"), fclose};
+                        fopen(ZRAM_CONF_MCS, "re+"), fclose};
                 if (zram_mcs_fp == nullptr) {
                     LERROR << "Unable to open zram conf comp device " << ZRAM_CONF_MCS;
                     ret = false;
